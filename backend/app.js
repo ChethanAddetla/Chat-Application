@@ -16,7 +16,10 @@ app.options('*', cors(corsOptions));
 
 
 const PORT = process.env.PORT|| 5000;
-const io=require('socket.io')(8000,{
+
+const server =app.listen(PORT,()=>{console.log('server is running on port '+PORT)})
+
+const io=require('socket.io')(server,{
     cors:{
         origin:'https://realtime-chat-application-g25y.onrender.com'
     }
@@ -95,4 +98,4 @@ app.get('/',(req,res)=>{
 
 })
 
-app.listen(PORT,()=>{console.log('server is running on port '+PORT)})
+
