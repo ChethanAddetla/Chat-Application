@@ -10,7 +10,7 @@ const app=express();
 const PORT = process.env.PORT|| 5000;
 const io=require('socket.io')(8000,{
     cors:{
-        origin:'http://localhost:5173'
+        origin:'https://realtime-chat-application-g25y.onrender.com'
     }
 })
 
