@@ -4,8 +4,16 @@ const userRoutes = require('./routes/userRoutes');
 const msgRoutes = require('./routes/msgRoutes');
 const userModel = require('../backend/models/Users');
 const cors = require('cors')
-
 const app=express();
+
+const corsOptions = {
+  origin: 'https://realtime-chat-application-g25y.onrender.com', // Allow this origin
+  optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
+
+
 
 const PORT = process.env.PORT|| 5000;
 const io=require('socket.io')(8000,{
@@ -73,7 +81,7 @@ mongoose.connect(db)
 
 
 app.use(express.json())
-app.use(cors())
+
 app.use('/user',userRoutes);
 app.use('/msg',msgRoutes);
 app.use(express.urlencoded({extended :false}));
