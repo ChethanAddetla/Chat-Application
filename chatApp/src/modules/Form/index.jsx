@@ -15,7 +15,7 @@ const Form = ({ isSigninPage = false }) => {
   const[email,setEmail] = useState("")
   const[password,setPassword] = useState("") 
   
-  const url = "http://localhost:5000"
+  const url = "https://chat-application-ga4s.onrender.com"
 
   const handleSubmit=async (e)=>{ 
     e.preventDefault()
