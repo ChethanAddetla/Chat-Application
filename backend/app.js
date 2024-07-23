@@ -4,6 +4,10 @@ const userRoutes = require('./routes/userRoutes');
 const msgRoutes = require('./routes/msgRoutes');
 const userModel = require('../backend/models/Users');
 const cors = require('cors')
+
+const app=express();
+
+const PORT = process.env.PORT|| 5000;
 const io=require('socket.io')(8000,{
     cors:{
         origin:'http://localhost:5173'
@@ -62,9 +66,7 @@ io.on('connection',socket=>{
 
 
 
-const app=express();
 
-const PORT = 5000;
 
 const db = "mongodb+srv://chethanaddetlapp:saichethan@cluster0.gymgrke.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 mongoose.connect(db)

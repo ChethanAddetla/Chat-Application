@@ -15,10 +15,11 @@ const Form = ({ isSigninPage = false }) => {
   const[email,setEmail] = useState("")
   const[password,setPassword] = useState("") 
   
+  const url = "http://localhost:5000"
 
-  const handleSubmit=async (e)=>{
+  const handleSubmit=async (e)=>{ 
     e.preventDefault()
-    const result  = await fetch(`http://localhost:5000/user/${isSigninPage ? 'login':'signup'}`,{
+    const result  = await fetch(`${url}/user/${isSigninPage ? 'login':'signup'}`,{
       method:"POST",
       headers:{
         'Content-Type':'application/json',

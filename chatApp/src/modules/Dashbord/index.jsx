@@ -15,6 +15,8 @@ function Dashbord() {
   const messageRef = useRef(null)
   let img =Avatar
 
+   const url = "http://localhost:5000"
+
 useEffect(()=>{
   setSocket(io('http://localhost:8000'))
 },[])
@@ -41,7 +43,7 @@ useEffect(()=>{
   useEffect(()=>{
     const logInUser = JSON.parse(localStorage.getItem('userDetails'));
     const fetchConversations = async()=>{
-      const result  = await fetch(`http://localhost:5000/msg/conversation/${logInUser.userId}`,{
+      const result  = await fetch(`${url}/msg/conversation/${logInUser.userId}`,{
         method:'GET',
         headers:{
           'Content-Type':'application/json',
@@ -64,7 +66,7 @@ useEffect(()=>{
 
   useEffect(()=>{
     const fetchUsers = async()=>{
-      const result  = await fetch(`http://localhost:5000/user/users`,{
+      const result  = await fetch(`${url}/user/users`,{
         method:'GET',
         headers:{
           'Content-Type':'application/json',
@@ -93,7 +95,7 @@ useEffect(()=>{
         conversationId:messages?.conversationId
     })
      
-    const result  = await fetch(`http://localhost:5000/msg/message`,{
+    const result  = await fetch(`${url}/msg/message`,{
       method:'POST',
       headers:{
         'Content-Type':'application/json',
@@ -116,7 +118,7 @@ useEffect(()=>{
 
 
   const fetchMessages=async (conversationId,user)=>{
-    const result  = await fetch(`http://localhost:5000/msg/message/${conversationId}`,{
+    const result  = await fetch(`${url}/msg/message/${conversationId}`,{
       method:'GET',
       headers:{
         'Content-Type':'application/json',
@@ -151,7 +153,7 @@ useEffect(()=>{
 
 
   const startConversation=async (receiverId,receiver)=>{
-    const result  = await fetch(`http://localhost:5000/msg/conversationCheck/${user.userId}`,{
+    const result  = await fetch(`${url}/msg/conversationCheck/${user.userId}`,{
       method:'POST',
       headers:{
         'Content-Type':'application/json',
