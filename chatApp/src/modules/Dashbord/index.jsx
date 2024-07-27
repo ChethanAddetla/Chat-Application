@@ -15,7 +15,11 @@ function Dashbord() {
   const messageRef = useRef(null)
   let img =Avatar
 
+<<<<<<< HEAD
    const url = "https://chat-application-ga4s.onrender.com"  //"http://localhost:5000"
+=======
+   const url = "https://chat-application-ga4s.onrender.com"
+>>>>>>> 9dbb297273a8e5508a32d264475d3f8089cb1a92
 
 useEffect(()=>{
   setSocket(io('http://localhost:8000'))

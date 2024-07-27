@@ -4,13 +4,28 @@ const userRoutes = require('./routes/userRoutes');
 const msgRoutes = require('./routes/msgRoutes');
 const userModel = require('../backend/models/Users');
 const cors = require('cors')
-
 const app=express();
 
+const corsOptions = {
+  origin: 'https://realtime-chat-application-g25y.onrender.com', // Allow this origin
+  optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); 
+
+
 const PORT = process.env.PORT|| 5000;
-const io=require('socket.io')(8000,{
+
+const server =app.listen(PORT,()=>{console.log('server is running on port '+PORT)})
+
+const io=require('socket.io')(server,{
     cors:{
+<<<<<<< HEAD
         origin:'https://realtime-chat-application-g25y.onrender.com/'
+=======
+        origin:'https://realtime-chat-application-g25y.onrender.com'
+>>>>>>> 9dbb297273a8e5508a32d264475d3f8089cb1a92
     }
 })
 
@@ -78,7 +93,7 @@ mongoose.connect(db)
 
 
 app.use(express.json())
-app.use(cors())
+
 app.use('/user',userRoutes);
 app.use('/msg',msgRoutes);
 app.use(express.urlencoded({extended :false}));
@@ -92,4 +107,4 @@ app.get('/',(req,res)=>{
 
 })
 
-app.listen(PORT,()=>{console.log('server is running on port '+PORT)})
+
