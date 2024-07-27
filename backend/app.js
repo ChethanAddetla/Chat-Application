@@ -10,7 +10,7 @@ const app=express();
 const PORT = process.env.PORT|| 5000;
 const io=require('socket.io')(8000,{
     cors:{
-        origin:'http://localhost:5173'
+        origin:'https://realtime-chat-application-g25y.onrender.com/'
     }
 })
 
@@ -34,34 +34,39 @@ io.on('connection',socket=>{
     });
     // io.emit('getuser',socket.userId);
     socket.on('sendMessage',async({ senderId,receiverId,message,conversationId})=>{
+      // console.log({ senderId,receiverId,message,conversationId})
+
       const receiver = users.find(user=>user.userId === receiverId);
       const sender = users.find(user=>user.userId === senderId);
       const user = await userModel.findById(senderId)
     //   console.log(user)
       if(receiver){
-        io.to(receiver.socketId).to(sender.socketId).emit('getMessage',{
+          // console.log({ senderId,receiverId,message,conversationId})
+        io.to(receiver?.socketId).to(sender?.socketId).emit('getMessage',{
+            senderId,
+            message,
+            conversationId,
+            receiverId,
+            user:{id:user._id,fullname :user.fullname,profilePicture:user.profilePicture}
+            
+        })
+      }
+      else{
+        io.to(sender?.socketId).emit('getMessage',{
             senderId,
             message,
             conversationId,
             receiverId,
             user:{id:user._id,fullname :user.fullname,profilePicture:user.profilePicture}
 
-            
-        })
-      }
-      else{
-        io.to(sender.socketId).emit('getMessage',{
-            senderId,
-            message,
-            conversationId,
-            receiverId,
-            user:{id:user._id,fullname :user.fullname,profilePicture:user.profilePicture}
 
         })
       }
     })
 
 })
+
+
 
 
 

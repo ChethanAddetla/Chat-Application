@@ -15,7 +15,7 @@ function Dashbord() {
   const messageRef = useRef(null)
   let img =Avatar
 
-   const url = "http://localhost:5000"
+   const url = "https://chat-application-ga4s.onrender.com"  //"http://localhost:5000"
 
 useEffect(()=>{
   setSocket(io('http://localhost:8000'))
@@ -29,12 +29,13 @@ useEffect(()=>{
   })
 
   socket?.on('getMessage',(data)=>{
-    // console.log(data)
+    console.log(data)
     // console.log(messages)
     setMessage((prev) => ({
       ...prev,
-      messages: [...prev.messages, { user, message: data.message }],
+      messages: [...prev.messages, {...data}],// user, message: data.message
     }));
+    // console.log({hii:messages})
 
     // setMessage({messages:,receiver:user,conversationId})
   })
@@ -111,7 +112,7 @@ useEffect(()=>{
 
     // console.log(response.msg)
     // console.log(conversations)
-    // console.log(messages)
+    console.log(messages)
    
   }
 
@@ -127,8 +128,9 @@ useEffect(()=>{
     const response  = await result.json();
     // console.log(response)
     // setConversations(response);
+
     setMessage({messages:response,receiver:user,conversationId})
-    // console.log(messages)
+    //  console.log(messages)
     
   //  setMsgLength(response.length)
   //  console.log(response.length)
@@ -304,11 +306,12 @@ useEffect(()=>{
                 
             messages.messages.map(({message,user:{id}},index)=>{
 
-              
+              // console.log({id,userID:user.userID})
                       return(
+                        
                         <>
                         <div
-                  className={`max-w-[45%]  rounded-b-xl  p-2  mt-1 ${id === user.userId?'bg-primary text-white rounded-tl-xl ml-auto ':'bg-light text-black rounded-tr-xl'}` } key={index}>
+                  className={`max-w-[45%]  rounded-b-xl  p-2  mt-1 ${id === user.userId  ?'bg-primary text-white rounded-tl-xl ml-auto ':'bg-light text-black rounded-tr-xl'}` } key={index}>
                   {message}
                 </div>
                 <div ref={messageRef}></div>
