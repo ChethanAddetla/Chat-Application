@@ -18,7 +18,7 @@ function Dashbord() {
    const url = "https://chat-application-ga4s.onrender.com"
 
 useEffect(()=>{
-  setSocket(io('http://localhost:8000'))
+  setSocket(io(url))
 },[])
 
 useEffect(()=>{
