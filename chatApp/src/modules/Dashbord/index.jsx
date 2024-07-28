@@ -197,7 +197,7 @@ useEffect(()=>{
         <hr></hr>
         <div className="mx-10 mt-10">
           <div className="text-primary text-lg">Messages</div>
-          <div className="">
+          <div className="h-[100%] overflow-scroll no-scrollbar border-b w-full">
             {
             conversations.length >0 ?
             conversations.map(({conversationId,user},index) => {
@@ -381,7 +381,7 @@ useEffect(()=>{
 
       <div className="w-[25%] h-screen border px-8 py-12 bg-light">
       <div className="text-primary text-lg font-solid">People</div>
-          <div className="">
+          <div className="h-[100%] overflow-scroll no-scrollbar border-b w-full">
             {
             users.length >0 ?
             users.map(({user,userId},index) => {
