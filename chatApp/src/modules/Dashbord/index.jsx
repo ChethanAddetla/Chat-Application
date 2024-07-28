@@ -33,7 +33,7 @@ useEffect(()=>{
     // console.log(messages)
     setMessage((prev) => ({
       ...prev,
-      messages: [...prev.messages, { user, message: data.message }],
+      messages: [...prev.messages, {...data }],
     }));
 
     // setMessage({messages:,receiver:user,conversationId})
