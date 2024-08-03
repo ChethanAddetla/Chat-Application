@@ -7,8 +7,8 @@ const cors = require('cors')
 const app=express();
 
 const corsOptions = {
-  origin: 'https://realtime-chat-application-g25y.onrender.com', // Allow this origin
-  optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
+  origin:'https://realtime-chat-application-g25y.onrender.com',  //'http://localhost:5173'
+  optionsSuccessStatus: 200 
 };
 
 app.use(cors(corsOptions));
@@ -21,11 +21,11 @@ const server =app.listen(PORT,()=>{console.log('server is running on port '+PORT
 
 const io=require('socket.io')(server,{
     cors:{
-<<<<<<< HEAD
-        origin:'https://realtime-chat-application-g25y.onrender.com/'
-=======
-        origin:'https://realtime-chat-application-g25y.onrender.com'
->>>>>>> 9dbb297273a8e5508a32d264475d3f8089cb1a92
+
+        origin: 'https://realtime-chat-application-g25y.onrender.com/'
+        // 'http://localhost:5173'
+
+
     }
 })
 
