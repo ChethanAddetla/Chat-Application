@@ -22,7 +22,7 @@ const server =app.listen(PORT,()=>{console.log('server is running on port '+PORT
 const io=require('socket.io')(server,{
     cors:{
 
-        origin: 'https://realtime-chat-application-g25y.onrender.com/'
+        origin: 'https://realtime-chat-application-g25y.onrender.com'
         // 'http://localhost:5173'
 
 
