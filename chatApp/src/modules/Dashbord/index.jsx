@@ -17,7 +17,7 @@ function Dashbord() {
   const [activeUsers, setActiveUsers] = useState([]);
   let img = Avatar;
 
-  const url = "https://chat-application-ga4s.onrender.com" ;//"http://localhost:5000"; 
+  const url = "https://chat-application-ga4s.onrender.com"//"http://localhost:5000"; 
 
   useEffect(() => {
     setSocket(io(url));
