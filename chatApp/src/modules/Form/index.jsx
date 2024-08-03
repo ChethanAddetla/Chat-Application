@@ -16,8 +16,8 @@ const Form = ({ isSigninPage = false }) => {
   const[password,setPassword] = useState("") 
   
 
-  const url = "https://chat-application-ga4s.onrender.com"
-  // "http://localhost:5000"
+  // const url = "https://chat-application-ga4s.onrender.com"
+  const url = "http://localhost:5000"
 
 
 
@@ -71,6 +71,7 @@ const Form = ({ isSigninPage = false }) => {
           <Input
             label="Full Name"
             value={data.fullname}
+            inputClassName="bg-light focus:bg-white"
             onChange={(e) => setData({ ...data, fullname: e.target.value })}
             name="fullname"
             placeholder="Enter your full name"
@@ -79,6 +80,7 @@ const Form = ({ isSigninPage = false }) => {
         <Input
           label="Email"
           value={data.email}
+          inputClassName="bg-light focus:bg-white"
           type="email"
           onChange={(event) => setData({ ...data, email: event.target.value })}
           name="email"
@@ -87,6 +89,7 @@ const Form = ({ isSigninPage = false }) => {
         <Input
           label="Password"
           type="password"
+          inputClassName="bg-light focus:bg-white"
           value={data.password}
           onChange={(event) =>
             setData({ ...data, password: event.target.value })
@@ -97,6 +100,7 @@ const Form = ({ isSigninPage = false }) => {
         {!isSigninPage && (
           <Input
             label="Confirm Password"
+            inputClassName="bg-light focus:bg-white"
             value={data.cpassword}
             onChange={(e) => setData({ ...data, cpassword: e.target.value })}
             className="mb-5"

@@ -90,6 +90,32 @@ userRoutes.get('/users',async (req,res)=>{
     
 })
 
+userRoutes.get('/searchUser/:userName',async(req,res)=>{
+     let userName = req.params.userName;
+     
+     try{
+        let regex = new RegExp(userName, 'i');
+        let users = await userModel.find({fullname:regex})
+        // console.log(users)
+
+        if(users.length > 0){
+            let userData = await Promise.all( users.map((user)=>{
+                return{
+                    user:{email:user.email,fullname:user.fullname},userId:user._id
+                }
+            }))
+            res.send({data:userData,status :true ,msg:"Users Found"})
+        }
+        else{
+            
+            res.send({status:false,msg:"No such user found"})
+        }
+     }
+     catch{
+        res.status(400).send({status:false,msg:"Error in find user"})
+     }
+})
+
 
 const generatetoken=(data)=>{
     return jwt.sign(data,process.env.SECURITY_KEY,{expiresIn:'1d'})

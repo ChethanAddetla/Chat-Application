@@ -7,7 +7,8 @@ const cors = require('cors')
 const app=express();
 
 const corsOptions = {
-  origin:'https://realtime-chat-application-g25y.onrender.com',  //'http://localhost:5173'
+  origin:'http://localhost:5173', 
+  // origin : 'https://realtime-chat-application-g25y.onrender.com',
   optionsSuccessStatus: 200 
 };
 
@@ -22,8 +23,8 @@ const server =app.listen(PORT,()=>{console.log('server is running on port '+PORT
 const io=require('socket.io')(server,{
     cors:{
 
-        origin: 'https://realtime-chat-application-g25y.onrender.com/'
-        // 'http://localhost:5173'
+        // origin: 'https://realtime-chat-application-g25y.onrender.com'
+        origin: 'http://localhost:5173'
 
 
     }
@@ -31,7 +32,7 @@ const io=require('socket.io')(server,{
 
 let users=[]
 io.on('connection',socket=>{
-    console.log('User Connected',socket.id)
+    // console.log('User Connected',socket.id)
     socket.on('addUser',clint =>{
         const isUserExist = users.find(user => user.userId === clint.userId)
         if(!isUserExist){

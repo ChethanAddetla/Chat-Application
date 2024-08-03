@@ -15,9 +15,11 @@ function Dashbord() {
   const [socketUsers, setsoketUsers] = useState([]);
   const messageRef = useRef(null);
   const [activeUsers, setActiveUsers] = useState([]);
+  const [searchInput ,setSearchInput]=useState("");
   let img = Avatar;
 
-  const url = "https://chat-application-ga4s.onrender.com"//"http://localhost:5000"; 
+  // const url = "https://chat-application-ga4s.onrender.com"
+  const url ="http://localhost:5000"; 
 
   useEffect(() => {
     setSocket(io(url));
@@ -86,6 +88,57 @@ function Dashbord() {
     fetchUsers();
   }, []);
 
+  useEffect(()=>{
+    const findUser=async(value)=>{
+      
+      // console.log(e.target.value)
+      const result  = await fetch(`${url}/user/searchUser/${value}`,{
+        method:'GET',
+        headers :{
+          "Content-Type": "application/json",
+        }
+      })
+  
+      const response = await result.json()
+  
+      if(response.status){
+        setUsers(response.data);
+        // console.log(users)
+      }
+      else{
+        setUsers([])
+      }
+      
+      // console.log(users)
+  
+  
+    }
+    const fetchUsers = async () => {
+      const result = await fetch(`${url}/user/users`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const response = await result.json();
+      // console.log(response)
+      setUsers(response);
+      // console.log(response)
+    };
+    if(searchInput){
+      findUser(searchInput)
+    }
+    else{
+      fetchUsers()
+    }
+    
+  },[searchInput])
+
+ const searchUser=(e)=>{
+  e.preventDefault();
+  setSearchInput(e.target.value)
+ }
   const sendMessage = async (e) => {
     e.preventDefault();
     setMsg("");
@@ -220,17 +273,16 @@ function Dashbord() {
                       <div className="ml-6 w-[80%] overflow-hidden">
                         <h3 className="text-xl  truncate">{user?.fullname}</h3>
                         {isOnline ? (
-                          <p className="text-md font-light flex items-center">
-                          <span className="w-2.5 h-2.5 rounded-full bg-green-500 mr-2"></span>
-                          online
-                        </p>
-                        ) : (
-                          //  console.log("active users : " ,activeUsers)
-                          <p className="text-md font-light flex items-center">
-                      <span className="w-2.5 h-2.5 rounded-full bg-gray-400 mr-2"></span>
-                      offline
-                    </p>
-                        )}
+            <p className="text-md font-light flex items-center">
+    <span className="w-2 h-2 rounded-full bg-green-500 mr-2 inline-block"></span>
+    <span className="text-gray-800">Online</span>
+  </p>
+) : (
+  <p className="text-md font-light flex items-center">
+    <span className="w-2 h-2 rounded-full bg-gray-400 mr-2 inline-block"></span>
+    <span className="text-gray-800">Offline</span>
+  </p>
+)}
                       </div>
                     </div>
                   </div>
@@ -261,15 +313,15 @@ function Dashbord() {
                   (item) => item.userId === messages.receiver.id
                 ) ? (
                   <p className="text-md font-light flex items-center">
-                  <span className="w-2.5 h-2.5 rounded-full bg-green-500 mr-2"></span>
-                  online
+                  <span className="w-2 h-2 rounded-full bg-green-500 mr-2 inline-block"></span>
+                  <span className="text-gray-800">Online</span>
                 </p>
                 ) : (
                   //  console.log("active users : " ,activeUsers)
                   <p className="text-md font-light flex items-center">
-              <span className="w-2.5 h-2.5 rounded-full bg-gray-400 mr-2"></span>
-              offline
-            </p>
+                  <span className="w-2 h-2 rounded-full bg-gray-400 mr-2 inline-block"></span>
+                  <span className="text-gray-800">Offline</span>
+                </p>
                 )}
               </div>
               <div className="flex items-end">
@@ -442,9 +494,23 @@ function Dashbord() {
         )}
       </div>
 
-      <div className="w-[25%] h-screen border px-8 py-10 bg-light ">
-        <div className="text-primary text-xl font-solid">People</div>
-        <div className="h-[100%] overflow-scroll no-scrollbar border-b w-full">
+      <div className="w-[25%] h-screen border px-2 pb-8 pt-2 bg-light ">
+        
+          <div>
+                <Input
+                  placeholder="Search for user"
+                  className="w-[100%]"
+                  name="message"
+                  value={searchInput}
+                  onChange={searchUser}
+                  inputClassName="p-2 w-[100%] border-primary placeholder-gray-800 px-10 shadow-md rounded-full p-5 bg-light text-primary "
+                ></Input>
+
+              </div>
+              <div className="text-primary text-xl px-4 font-solid">
+          People
+          </div>
+        <div className="h-[90%] overflow-scroll no-scrollbar px-4 py-1 border-b w-full">
           {users.length > 0 ? (
             users.map(({ user, userId }, index) => {
               // console.log(conversation)
