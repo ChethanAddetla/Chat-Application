@@ -16,8 +16,8 @@ const Form = ({ isSigninPage = false }) => {
   const[password,setPassword] = useState("") 
   
 
-  // const url = "https://chat-application-ga4s.onrender.com"
-  const url = "http://localhost:5000"
+  const url = "https://chat-application-ga4s.onrender.com"
+  // const url = "http://localhost:5000"
 
 
 

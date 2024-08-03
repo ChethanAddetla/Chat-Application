@@ -18,8 +18,8 @@ function Dashbord() {
   const [searchInput ,setSearchInput]=useState("");
   let img = Avatar;
 
-  // const url = "https://chat-application-ga4s.onrender.com"
-  const url ="http://localhost:5000"; 
+  const url = "https://chat-application-ga4s.onrender.com"
+  // const url ="http://localhost:5000"; 
 
   useEffect(() => {
     setSocket(io(url));
